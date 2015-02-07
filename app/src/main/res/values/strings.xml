@@ -5,5 +5,24 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_find_barbers">Live Chair</string>
+    <string name="title_activity_barbers">Barbers</string>
+    <string name="no_item">Stay tuned the barbers are coming.</string>
+    <string-array name="fake_barbers">
+        <item>Barber 1</item>
+        <item>Barber 2</item>
+        <item>Barber 3</item>
+        <item>Barber 4</item>
+        <item>Barber 5</item>
+        <item>Barber 6</item>
+        <item>Barber 7</item>
+        <item>Barber 8</item>
+        <item>Barber 9</item>
+        <item>Barber 10</item>
+        <item>Barber 11</item>
+        <item>Barber 12</item>
+        <item>Barber 13</item>
+        <item>Barber 14</item>
+        <item>Barber 15</item>
+    </string-array>
 
 </resources>

@@ -2,21 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="claflin.livechair.com.livechair" >
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LiveChair"
             android:label="@string/title_activity_find_barbers"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+
+        </activity>
+        <activity
+            android:name=".BarberListActivity"
+            android:label="@string/title_activity_barbers" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
