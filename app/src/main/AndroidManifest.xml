@@ -21,15 +21,18 @@
             android:label="@string/title_activity_find_barbers"
             android:screenOrientation="portrait" >
 
-        </activity>
-        <activity
-            android:name=".BarberListActivity"
-            android:label="@string/title_activity_barbers" >
-            <intent-filter>
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".BarberListActivity"
+            android:label="@string/title_activity_barbers"
+            android:screenOrientation="portrait">
+
         </activity>
     </application>
 
