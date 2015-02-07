@@ -32,6 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class BarberListActivity extends ListActivity {
@@ -57,17 +58,16 @@ public class BarberListActivity extends ListActivity {
 //        }
 
 
-          if (networkIsAvailable())
-          {
-             // getBarberData();
-              GetBarbersTask getBarbers = new GetBarbersTask();
-              getBarbers.execute();
-          }
+        if (networkIsAvailable()) {
+//             getBarberData();
+            GetBarbersTask getBarbers = new GetBarbersTask();
+            getBarbers.execute();
 
 
+            //TODO and remove
 
 
-
+        }
 
 
 //        Resources resources = getResources();
@@ -83,8 +83,7 @@ public class BarberListActivity extends ListActivity {
 
         boolean isAvailable = false;
 
-        if (networkInfo != null && networkInfo.isConnected())
-        {
+        if (networkInfo != null && networkInfo.isConnected()) {
             isAvailable = true;
         }
 
@@ -150,47 +149,30 @@ public class BarberListActivity extends ListActivity {
 //    }
 
     private void updateList() {
-        if (mBarberData == null)
-        {
+        if (mBarberData == null) {
             // TODO handle error
             Log.i("finally reached hrer", "no data");
-        }
-        else
-        {
-          //  try {
-//               JSONArray barbers = new JSONArray();
-//               for (int i = 0; i < mBarberData.length(); i++)
-//               {
-//                    barbers.put(mBarberData.get(i));
-//               }
-//
-//                Log.i(TAG, barbers.toString());
-//                for (int i = 0; i < mBarberData.length(); i++)                        {
-//                    JSONObject array = mBarberData.getJSONObject(i);
-//                               JSONObject barbers = array.getJSONObject("user");
-//                              String name = barbers.getString("fname");
-//                              Log.i("whats happening", name);
-//                          }
-//
-//            mBarberList = new String[barbers.length()];
-//
-//            for (int i = 0; i < barbers.length(); i++)
-//            {
-//                JSONObject jsonBarber = barbers.getJSONObject(i);
-//                String barberName = jsonBarber.getString("fname") + " " + jsonBarber.getString("lname");
-//                barberName = Html.fromHtml(barberName).toString();
-//                mBarberList[i] = barberName;
-//            }
-//
-//            Log.i(TAG, mBarberList.toString());
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBarberList);
-//            setListAdapter(adapter);
+        } else {
+              try {
+
+                  mBarberList = new String[mBarberData.length()];
+                  for (int i = 0; i < mBarberData.length(); i++)
+                  {
+                      JSONObject barbers = mBarberData.getJSONObject(i);
+                      JSONObject barberInfo = barbers.getJSONObject("user");
+
+                      mBarberList[i] = barberInfo.getString("fname") + " " + barberInfo.getString("lname");
+                  }
+
+                    Log.i(TAG, Arrays.toString(mBarberList));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBarberList);
+                    setListAdapter(adapter);
 
 
-           // }
-//            catch (JSONException e) {
-//                Log.e(TAG, "Exception caught: " + e);
-//            }
+            }
+            catch (JSONException e) {
+                Log.e(TAG, "Exception caught: " + e);
+            }
         }
     }
 
@@ -198,132 +180,64 @@ public class BarberListActivity extends ListActivity {
     // data given, progress data and return data from background operation
     class GetBarbersTask extends AsyncTask<Object, Void, JSONArray> {
 
-        JSONArray jsonResponse;
+
 
 
         @Override
         protected JSONArray doInBackground(Object[] params) {
 
-//
-//            int responseCode = -1;
-//
-//            // try getting the barber data
-//            try {
-//                URL barberListUrl = new URL("https://api.forecast.io/forecast/5534ffc4c4805ecb5a7800e9be7bbe27/37.8267,-122.423");
-//                HttpURLConnection connection = (HttpURLConnection) barberListUrl.openConnection();
-//
-//                connection.connect();
-//                responseCode = connection.getResponseCode();
-//
-//
-//                if (responseCode == HttpURLConnection.HTTP_OK)
-//                {
-//                    InputStream inputStream = connection.getInputStream();
-//
-//                    Log.i(TAG, "InputStream " + inputStream);
-//
-//                    Reader reader = new InputStreamReader(inputStream);
-//
-//                    int contentLength = connection.getContentLength();
-//
-//                    Log.i(TAG, contentLength + "");
-//                    char[] charArray = new char[contentLength];
-//
-//
-//
-//                    reader.read(charArray);
-//                    String responseData = new String(charArray);
-//
-//
-//                    jsonResponse = new JSONArray(responseData);
-//                    Log.v(TAG, jsonResponse.toString());
-//
-//                }
-//                else {
-//                    Log.i(TAG, "Unsuccessful HTTP Response Code" + responseCode);
-//                }
-//            } catch (MalformedURLException e) {
-//                Log.e(TAG, "Exection caught: " + e);
-//            }
-//            catch (IOException e)
-//            {
-//                Log.e(TAG, "Exception caught: " + e);
-//            }
-//            catch (Exception e)
-//            {
-//                Log.e(TAG, "Exception caught: " + e);
-//            }
-//
-//            return jsonResponse;
-//        }
-    //}
+            JSONArray jsonResponse = null;
+            int responseCode = -1;
+
+            // try getting the barber data
+            try {
+                URL barberListUrl = new URL("https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers");
+                HttpURLConnection connection = (HttpURLConnection) barberListUrl.openConnection();
+
+                connection.connect();
+                responseCode = connection.getResponseCode();
 
 
-            String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = connection.getInputStream();
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(barberUrl).build();
+                    Log.i(TAG, "InputStream " + inputStream);
 
-            Call call = client.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                    StringBuilder data = new StringBuilder();
+                    //Reader reader = new InputStreamReader(inputStream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                    String line = "";
 
-                        }
-                    });
+                    while( (line = br.readLine()) != null)
+                    {
+                        Log.i("lines i am getting", line.toString());
+                        data.append(line);
+                    }
+
+                    String responseData = new String(data);
+
+
+                    jsonResponse = new JSONArray(responseData);
+                    Log.v(TAG, jsonResponse.toString());
+
+                } else {
+                    Log.i(TAG, "Unsuccessful HTTP Response Code" + responseCode);
                 }
-
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                    try {
-                        final String jsonData = response.body().string();
-                        //Log.i(TAG, jsonData);
-
-                        if (response.isSuccessful()) {
-                            jsonResponse = new JSONArray(jsonData);
-                            Log.i("json success", jsonResponse.toString());
-
-
-
-                         for (int i = 0; i < jsonResponse.length(); i++)
-                            {
-                                JSONObject array = jsonResponse.getJSONObject(i);
-                                JSONObject barbers = array.getJSONObject("user");
-                                String name = barbers.getString("fname");
-                                Log.i(TAG, name);
-                            }
-
-                        }
-
-                    }
-                    catch (IOException e) {
-
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "Exection caught: " + e);
+            } catch (IOException e) {
+                Log.e(TAG, "Exception caught: " + e);
+            } catch (Exception e) {
+                Log.e(TAG, "Exception caught: " + e);
+            }
 
             return jsonResponse;
-
-       }
+        }
 
         @Override
-        // is on user interface
         protected void onPostExecute(JSONArray result)
         {
             mBarberData = result;
-            //Log.i("i am here", mBarberData.toString());
             updateList();
         }
 
