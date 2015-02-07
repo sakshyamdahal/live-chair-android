@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
@@ -34,8 +35,9 @@ import java.util.ArrayList;
 
 
 public class BarberListActivity extends ListActivity {
-    protected ArrayList<String> mBarberList;
+    protected String[] mBarberList;
     public String TAG = "tag from " + getClass().getSimpleName();
+    protected JSONArray mBarberData;
 //    public static final int NUMBER_OF_BARBERS = 20;
 
 
@@ -57,7 +59,9 @@ public class BarberListActivity extends ListActivity {
 
           if (networkIsAvailable())
           {
-              getBarberData();
+             // getBarberData();
+              GetBarbersTask getBarbers = new GetBarbersTask();
+              getBarbers.execute();
           }
 
 
@@ -95,62 +99,112 @@ public class BarberListActivity extends ListActivity {
         return true;
     }
 
-    public void getBarberData() {
+//    public void getBarberData() {
+//
+//        String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
+//
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(barberUrl).build();
+//
+//        Call call = client.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                });
+//                try {
+//                    final String jsonData = response.body().string();
+//                    Log.i(TAG, jsonData);
+//
+//                    if (response.isSuccessful()) {
+//                        JSONArray jsonArray = new JSONArray(jsonData);
+//
+//                    }
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    });
+//                } catch (IOException e) {
+//                    Log.e("TAG", "Exception caught " + e);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
-        String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
+    private void updateList() {
+        if (mBarberData == null)
+        {
+            // TODO handle error
+            Log.i("finally reached hrer", "no data");
+        }
+        else
+        {
+          //  try {
+//               JSONArray barbers = new JSONArray();
+//               for (int i = 0; i < mBarberData.length(); i++)
+//               {
+//                    barbers.put(mBarberData.get(i));
+//               }
+//
+//                Log.i(TAG, barbers.toString());
+//                for (int i = 0; i < mBarberData.length(); i++)                        {
+//                    JSONObject array = mBarberData.getJSONObject(i);
+//                               JSONObject barbers = array.getJSONObject("user");
+//                              String name = barbers.getString("fname");
+//                              Log.i("whats happening", name);
+//                          }
+//
+//            mBarberList = new String[barbers.length()];
+//
+//            for (int i = 0; i < barbers.length(); i++)
+//            {
+//                JSONObject jsonBarber = barbers.getJSONObject(i);
+//                String barberName = jsonBarber.getString("fname") + " " + jsonBarber.getString("lname");
+//                barberName = Html.fromHtml(barberName).toString();
+//                mBarberList[i] = barberName;
+//            }
+//
+//            Log.i(TAG, mBarberList.toString());
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBarberList);
+//            setListAdapter(adapter);
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(barberUrl).build();
 
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                try {
-                    final String jsonData = response.body().string();
-                    Log.i(TAG, jsonData);
-
-                    if (response.isSuccessful()) {
-                        JSONArray jsonArray = new JSONArray(jsonData);
-
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                } catch (IOException e) {
-                    Log.e("TAG", "Exception caught " + e);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+           // }
+//            catch (JSONException e) {
+//                Log.e(TAG, "Exception caught: " + e);
+//            }
+        }
     }
 
 
     // data given, progress data and return data from background operation
-    private class GetBarbersTask extends AsyncTask<Object, Void, String> {
+    class GetBarbersTask extends AsyncTask<Object, Void, JSONArray> {
+
+        JSONArray jsonResponse;
+
 
         @Override
-        protected String doInBackground(Object[] params) {
+        protected JSONArray doInBackground(Object[] params) {
+
+//
 //            int responseCode = -1;
 //
 //            // try getting the barber data
@@ -181,7 +235,7 @@ public class BarberListActivity extends ListActivity {
 //                    String responseData = new String(charArray);
 //
 //
-//                    JSONArray jsonResponse = new JSONArray(responseData);
+//                    jsonResponse = new JSONArray(responseData);
 //                    Log.v(TAG, jsonResponse.toString());
 //
 //                }
@@ -200,9 +254,10 @@ public class BarberListActivity extends ListActivity {
 //                Log.e(TAG, "Exception caught: " + e);
 //            }
 //
-//            return "Code " + responseCode;
+//            return jsonResponse;
 //        }
-//    }
+    //}
+
 
             String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
 
@@ -231,29 +286,50 @@ public class BarberListActivity extends ListActivity {
                     });
                     try {
                         final String jsonData = response.body().string();
-                        Log.i(TAG, jsonData);
+                        //Log.i(TAG, jsonData);
 
                         if (response.isSuccessful()) {
-                            JSONArray jsonArray = new JSONArray(jsonData);
+                            jsonResponse = new JSONArray(jsonData);
+                            Log.i("json success", jsonResponse.toString());
+
+
+
+                         for (int i = 0; i < jsonResponse.length(); i++)
+                            {
+                                JSONObject array = jsonResponse.getJSONObject(i);
+                                JSONObject barbers = array.getJSONObject("user");
+                                String name = barbers.getString("fname");
+                                Log.i(TAG, name);
+                            }
 
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
 
-                            }
-                        });
-                    } catch (IOException e) {
-                        Log.e("TAG", "Exception caught " + e);
-                    } catch (JSONException e) {
+                    }
+                    catch (IOException e) {
+
+                    }
+                    catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
 
-            return "";
+            return jsonResponse;
+
+       }
+
+        @Override
+        // is on user interface
+        protected void onPostExecute(JSONArray result)
+        {
+            mBarberData = result;
+            //Log.i("i am here", mBarberData.toString());
+            updateList();
         }
+
     }
+
+
 }
 
 
