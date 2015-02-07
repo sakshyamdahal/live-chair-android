@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class FindBarbers extends ActionBarActivity {
+public class LiveChair extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

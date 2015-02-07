@@ -2,70 +2,98 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="claflin.livechair.com.livechair.FindBarbers">
+                tools:context="claflin.livechair.com.livechair.LiveChair">
 
     <FrameLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:minHeight="500dp"
-        android:background="#ff9a3334">
+        android:background="@android:color/holo_red_light">
 
         <GridLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            
-            android:layout_gravity="center_horizontal|top"
-            android:rowCount="5"
-            android:columnCount="2">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right|top"
+            android:rowCount="6"
+            android:useDefaultMargins="true"
+            android:columnCount="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="130dp">
+
+            <Button
+                android:id="@+id/barber_button"
+                android:text="Barber"
+                android:layout_gravity="left|right|top"
+                android:background="@drawable/button_custom"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/haricut_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
+                android:text="Haircut"
+                android:layout_width="match_parent"
+                android:layout_gravity="left|right|top"
+                android:background="@drawable/button_custom"
+                android:clickable="true"/>
             <Button
                 android:id="@+id/style_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-            <Button
-                android:id="@+id/barber_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-            <Button
-                android:id="@+id/makeup_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-            <Button
-                android:id="@+id/FacialButton"
-                android:layout_gravity="left|top"
-                android:text="Button" />
+                android:text="Styles"
+                android:layout_gravity="left|right|top"
+                android:clickable="true"
+                android:background="@drawable/button_custom"
+                android:layout_width="wrap_content"/>
+            <!--<Button-->
+                <!--android:id="@+id/makeup_button"-->
+
+                <!--android:text="Make Up"-->
+                <!--android:layout_gravity="left|right"-->
+                <!--android:background="@drawable/button_custom"/>-->
+            <!--<Button-->
+                <!--android:id="@+id/FacialButton"-->
+                <!--android:text="Facial"-->
+                <!--android:layout_gravity="left|right"-->
+                <!--android:background="@drawable/button_custom"/>-->
             <Button
                 android:id="@+id/braids_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-            <Button
-                android:id="@+id/weaves_extension_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
+
+                android:text="Braids"
+                android:layout_gravity="left|right"
+                android:background="@drawable/button_custom"/>
+            <!--<Button-->
+                <!--android:id="@+id/weaves_extension_button"-->
+                <!--android:text="Weaves Extension"-->
+                <!--android:layout_gravity="left|right"-->
+                <!--android:background="@drawable/button_custom"/>-->
             <Button
                 android:id="@+id/nails_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-            <Button
-                android:id="@+id/color_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
+                android:text="Nails"
+                android:layout_gravity="left|right"
+                android:background="@drawable/button_custom"
+                />
+            <!--<Button-->
+                <!--android:id="@+id/color_button"-->
+                <!--android:text="Color"-->
+                <!--android:background="@drawable/button_custom"-->
+                <!--android:layout_gravity="left|right"-->
+                <!--android:layout_width="match_parent"/>-->
             <Button
                 android:id="@+id/blow_button"
-                android:layout_gravity="left|top"
-                android:text="Button" />
-
-
-
+                android:text="Blowout"
+                android:layout_gravity="left|right"
+                android:background="@drawable/button_custom"
+                android:layout_width="match_parent"/>
 
         </GridLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/banner"
+            android:layout_marginTop="12dp"/>
+
     </FrameLayout>
 
     <FrameLayout
@@ -76,5 +104,23 @@
         android:layout_alignParentStart="true"
         android:minHeight="60dp"
         android:background="#F3EFE0">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:text="My Appointments"
+            android:id="@+id/appointment_button"
+            android:layout_gravity="center"
+            android:background="#FFF3EFE0"
+            android:textColor="#3399FF"
+            android:clickable="true"
+
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
     </FrameLayout>
+
 </RelativeLayout>
