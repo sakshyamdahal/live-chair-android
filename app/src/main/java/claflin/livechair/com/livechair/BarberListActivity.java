@@ -8,7 +8,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +45,32 @@ public class BarberListActivity extends ListActivity {
 
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id)
+    {
+        super.onListItemClick(l,v,position,id);
+        JSONObject[] jsonBarbers = new JSONObject[mBarberData.length()];
+
+        for (int i = 0; i < jsonBarbers.length; i++)
+        {
+            try {
+                jsonBarbers[i] = mBarberData.getJSONObject(i).getJSONObject("user");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        JSONObject barber = jsonBarbers[position];
+       Log.i(TAG, jsonBarbers[2] + "barbers");
+
+        Log.i(TAG, barber.toString() + "at position " + position);
+        Toast.makeText(this,barber.toString(),Toast.LENGTH_SHORT).show();
+
+    }
+
+
+
+
     private boolean networkIsAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
@@ -55,21 +85,14 @@ public class BarberListActivity extends ListActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_barbers, menu);
-        return true;
-    }
+
 
 
     private void updateList() {
         if (mBarberData == null) {
-            // TODO handle error
-            Log.i("finally reached hrer", "no data");
+            Log.i(TAG, "not valid");
         } else {
               try {
-
                   mBarberList = new String[mBarberData.length()];
                   for (int i = 0; i < mBarberData.length(); i++)
                   {
@@ -82,7 +105,6 @@ public class BarberListActivity extends ListActivity {
                     Log.i(TAG, Arrays.toString(mBarberList));
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBarberList);
                     setListAdapter(adapter);
-
 
             }
             catch (JSONException e) {
@@ -98,12 +120,14 @@ public class BarberListActivity extends ListActivity {
         @Override
         protected JSONArray doInBackground(Object[] params) {
 
+
+
             JSONArray jsonResponse = null;
             int responseCode;
-
+            String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
             // try getting the barber data
             try {
-                URL barberListUrl = new URL("https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers");
+                URL barberListUrl = new URL(barberUrl);
                 HttpURLConnection connection = (HttpURLConnection) barberListUrl.openConnection();
 
                 connection.connect();
