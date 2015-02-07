@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="claflin.livechair.com.livechair.FindBarbers">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:minHeight="500dp"
+        android:background="#ff9a3334">
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            
+            android:layout_gravity="center_horizontal|top"
+            android:rowCount="5"
+            android:columnCount="2">
+
+            <Button
+                android:id="@+id/haricut_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/style_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/barber_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/makeup_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/FacialButton"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/braids_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/weaves_extension_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/nails_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/color_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+            <Button
+                android:id="@+id/blow_button"
+                android:layout_gravity="left|top"
+                android:text="Button" />
+
+
+
+
+        </GridLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:minHeight="60dp"
+        android:background="#F3EFE0">
+    </FrameLayout>
+</RelativeLayout>
