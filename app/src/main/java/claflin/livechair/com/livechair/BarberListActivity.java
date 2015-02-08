@@ -8,11 +8,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,18 +29,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class BarberListActivity extends ListActivity {
-    protected String[] mBarberList;
+    protected Barber[] mBarberList;
     public String TAG = "tag from " + getClass().getSimpleName();
     protected JSONArray mBarberData;
+    //ListView barberListView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.barber_list_activity);
+        setContentView(R.layout.list);
 
         if (networkIsAvailable()) {
             GetBarbersTask getBarbers = new GetBarbersTask();
@@ -46,7 +52,10 @@ public class BarberListActivity extends ListActivity {
 
     }
 
+
     @Override
+
+
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
         super.onListItemClick(l,v,position,id);
@@ -75,6 +84,8 @@ public class BarberListActivity extends ListActivity {
             e.printStackTrace();
         }
 
+
+
         //Toast.makeText(this, barberId + " ", Toast.LENGTH_LONG).show();
 
         // start the BarberProfile Intent
@@ -83,9 +94,8 @@ public class BarberListActivity extends ListActivity {
 
         startActivity(barberProf);
 
+
     }
-
-
 
 
     private boolean networkIsAvailable() {
@@ -110,23 +120,97 @@ public class BarberListActivity extends ListActivity {
             Log.i(TAG, "not valid");
         } else {
               try {
-                  mBarberList = new String[mBarberData.length()];
+                  mBarberList = new Barber[mBarberData.length()];
                   for (int i = 0; i < mBarberData.length(); i++)
                   {
                       JSONObject barbers = mBarberData.getJSONObject(i);
                       JSONObject barberInfo = barbers.getJSONObject("user");
 
-                      mBarberList[i] = barberInfo.getString("fname") + " " + barberInfo.getString("lname");
+                      JSONObject profile = barberInfo.getJSONObject("profile");
+
+                      mBarberList[i] = new Barber(barberInfo.getString("fname") + " " + barberInfo.getString("lname"), profile.getInt("id"));
                   }
 
-                    Log.i(TAG, Arrays.toString(mBarberList));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBarberList);
-                    setListAdapter(adapter);
+                    final BarberAdaptor mBarberAdaptor = new BarberAdaptor();
+                    //Log.i(TAG, Arrays.toString(mBarberList));
+
+                    setListAdapter(mBarberAdaptor);
+                    //barberListView = (ListView)findViewById(android.R.id.list);
+
+//
+//                  barberListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                      @Override
+//                      public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                              long arg3) {
+//
+//                          Log.i("message", "i got clicked");
+//
+//                          Barber barber = mBarberAdaptor.getBarber(arg2);
+//
+//                          int barberId = barber.mProfileId;
+//
+//                          Intent barberProf = new Intent(BarberListActivity.this, BarberProfile.class);
+//                          barberProf.putExtra("id", barberId);
+//
+//                          startActivity(barberProf);
+//                      }
+//                  });
 
             }
             catch (JSONException e) {
                 Log.e(TAG, "Exception caught: " + e);
             }
+        }
+    }
+
+
+
+    class BarberAdaptor extends BaseAdapter{
+        List<Barber> barberList = Arrays.asList(mBarberList);
+
+        @Override
+        public int getCount() {
+            return barberList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = (LayoutInflater) LayoutInflater.from(parent.getContext());
+            convertView = inflater.inflate(R.layout.row, parent, false);
+
+
+            TextView barberName = (TextView) convertView.findViewById(R.id.list_text_view);
+            RatingBar barberRating = (RatingBar) convertView.findViewById(R.id.list_rating_bar);
+            ImageView barberImage = (ImageView) convertView.findViewById(R.id.list_image_view);
+            Barber barber = barberList.get(position);
+
+            barberName.setText(barber.mName);
+            barberRating.setRating(barber.mRating);
+
+            int id = getResources().getIdentifier("claflin.livechair.com.livechair:drawable/" + "default_barber_image", null, null);
+           // barberImage.setImageResource(getResources().getDrawable(R.drawable.default_barber_image));
+            barberImage.setImageResource(id);
+
+            return convertView;
+
+        }
+
+        public Barber getBarber(int position)
+        {
+            return barberList.get(position);
         }
     }
 
