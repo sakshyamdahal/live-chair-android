@@ -2,6 +2,7 @@ package claflin.livechair.com.livechair;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -60,11 +61,25 @@ public class BarberListActivity extends ListActivity {
             }
         }
 
-        JSONObject barber = jsonBarbers[position];
+       JSONObject barber = jsonBarbers[position];
        Log.i(TAG, jsonBarbers[2] + "barbers");
 
         Log.i(TAG, barber.toString() + "at position " + position);
-        Toast.makeText(this,barber.toString(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,barber.toString(),Toast.LENGTH_SHORT).show();
+        int barberId = -1;
+        try {
+            barberId = barber.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Toast.makeText(this, barberId + " ", Toast.LENGTH_LONG).show();
+
+        // start the BarberProfile Intent
+        Intent barberProf = new Intent(BarberListActivity.this, BarberProfile.class);
+        barberProf.putExtra("id", barberId);
+
+        startActivity(barberProf);
 
     }
 
