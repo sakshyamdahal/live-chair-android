@@ -91,7 +91,7 @@ public class BarberListActivity extends ListActivity {
         // start the BarberProfile Intent
         Intent barberProf = new Intent(BarberListActivity.this, BarberProfile.class);
         barberProf.putExtra("id", barberId);
-
+        Log.i("profile id ", barberId + "");
         startActivity(barberProf);
 
 
