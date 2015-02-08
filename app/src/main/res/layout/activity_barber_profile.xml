@@ -42,4 +42,12 @@
         android:layout_below="@+id/barber_name"
         android:layout_centerHorizontal="true"
         android:layout_margin="80dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Navigate to the shop"
+        android:id="@+id/navigate_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

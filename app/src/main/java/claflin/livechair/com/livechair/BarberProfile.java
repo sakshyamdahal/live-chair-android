@@ -7,10 +7,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ public class BarberProfile extends ActionBarActivity {
     private TextView barberName;
     private TextView barberPhone;
     private TextView barberAddress;
+    private Button googleMapNavigate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class BarberProfile extends ActionBarActivity {
         barberName = (TextView) findViewById(R.id.barber_name);
         barberPhone = (TextView) findViewById(R.id.barber_phone);
         barberAddress = (TextView) findViewById(R.id.barber_address);
+        googleMapNavigate = (Button) findViewById(R.id.navigate_button);
 
         Intent intent = getIntent();
         barberProfileId = intent.getIntExtra("id", -1);
@@ -61,6 +66,23 @@ public class BarberProfile extends ActionBarActivity {
             getProfile.execute();
 
         }
+
+        googleMapNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (barberAddress.getText() != null)
+                {
+                    String[] addressArr = barberAddress.getText().toString().split(" ");
+                    String address = "";
+                    for (int i = 0; i < addressArr.length; i++)
+                        address += addressArr[i]+"+";
+
+                    //https://www.google.com/maps/place/400+Magnolia+St,+Orangeburg,+SC+29115/@33.4990214,-80.854211,17z/data=!3m1!4b1!4m2!3m1!1s0x88f8d4fdebd176e3:0x49f8c1a22dce3683
+                    Intent mapActivity = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + address ));
+                    startActivity(mapActivity);
+                }
+            }
+        });
 
 
     }

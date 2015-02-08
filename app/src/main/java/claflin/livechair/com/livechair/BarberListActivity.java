@@ -68,7 +68,9 @@ public class BarberListActivity extends ListActivity {
         //Toast.makeText(this,barber.toString(),Toast.LENGTH_SHORT).show();
         int barberId = -1;
         try {
-            barberId = barber.getInt("id");
+            //barberId = barber.getInt("id");
+            JSONObject profile = barber.getJSONObject("profile");
+            barberId = profile.getInt("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
