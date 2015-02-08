@@ -121,7 +121,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:onClick="@string/title_activity_sign_in" />
+            android:nestedScrollingEnabled="false" />
     </FrameLayout>
 
 </RelativeLayout>

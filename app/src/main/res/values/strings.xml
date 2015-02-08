@@ -8,7 +8,7 @@
     <string name="title_activity_barbers">Barbers</string>
     <string name="no_item">Loading barbers nearby.......</string>
     <string name="title_activity_barber_profile">BarberProfile</string>
-    <string name="title_activity_sign_in">Sign_in</string>
+    <string name="title_activity_sign_in">Sign in</string>
     <string name="appointment_button">My Appointments</string>
 
 </resources>

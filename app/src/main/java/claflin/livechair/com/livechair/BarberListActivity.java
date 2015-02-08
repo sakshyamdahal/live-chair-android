@@ -260,7 +260,7 @@ public class BarberListActivity extends ListActivity {
                     Log.i(TAG, "Unsuccessful HTTP Response Code" + responseCode);
                 }
             } catch (MalformedURLException e) {
-                Log.e(TAG, "Exection caught: " + e);
+                Log.e(TAG, "Exception caught: " + e);
             } catch (IOException e) {
                 Log.e(TAG, "Exception caught: " + e);
             } catch (JSONException e) {
@@ -280,6 +280,3 @@ public class BarberListActivity extends ListActivity {
     }
 
 }
-
-
-
