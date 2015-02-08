@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LiveChair.iml" filepath="$PROJECT_DIR$/LiveChair.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/live-chair-android.iml" filepath="$PROJECT_DIR$/live-chair-android.iml" />
     </modules>
   </component>
 </project>
