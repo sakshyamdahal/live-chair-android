@@ -10,5 +10,6 @@
     <string name="title_activity_barber_profile">BarberProfile</string>
     <string name="title_activity_sign_in">Sign in</string>
     <string name="appointment_button">My Appointments</string>
+    <string name="title_activity_view_reviews">View_reviews</string>
 
 </resources>

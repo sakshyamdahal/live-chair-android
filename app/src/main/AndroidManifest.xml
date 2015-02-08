@@ -53,6 +53,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="claflin.livechair.com.livechair.LiveChair" />
         </activity>
+        <activity
+            android:name=".View_reviews"
+            android:label="@string/title_activity_view_reviews"
+            android:parentActivityName=".BarberProfile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="claflin.livechair.com.livechair.BarberProfile" />
+        </activity>
     </application>
 
 </manifest>

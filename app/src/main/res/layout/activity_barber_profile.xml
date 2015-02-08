@@ -43,7 +43,8 @@
         android:textSize="20dp"
         android:background="#C0C0C0"
         android:textStyle="bold"
-        android:textColor="#0000FF"/>
+        android:textColor="#0000FF"
+        android:clickable="true" />
 
     <ImageView
         android:layout_width="wrap_content"
