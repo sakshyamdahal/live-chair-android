@@ -225,7 +225,7 @@ public class BarberListActivity extends ListActivity {
 
             JSONArray jsonResponse = null;
             int responseCode;
-            String barberUrl = "https://fathomless-temple-1065.herokuapp.com/api/v1/users/barbers";
+            String barberUrl = "https://livechairapp.herokuapp.com/api/v1/users/barbers";
             // try getting the barber data
             try {
                 URL barberListUrl = new URL(barberUrl);

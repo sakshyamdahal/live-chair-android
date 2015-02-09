@@ -101,6 +101,18 @@ public class BarberProfile extends ActionBarActivity {
         });
 
 
+        reviews.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+
+                                           Intent reviewsIntent = new Intent(BarberProfile.this, View_reviews.class);
+                                           reviewsIntent.putExtra("profile_id", barberProfileId);
+                                           startActivity(reviewsIntent);
+
+                                       }
+                                   });
+
+
         googleMapNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
